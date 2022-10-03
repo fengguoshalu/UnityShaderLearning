@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HalfLambertMat
-  m_Shader: {fileID: 4800000, guid: 7ef77c8eb4c5b364da1bcfce00274a15, type: 3}
+  m_Name: BlinnPhongUseBuildInFunctionMat
+  m_Shader: {fileID: 4800000, guid: 135cca0f4af9e7c42b9ad90bdc7f8c1c, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -76,6 +76,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Diffuse: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

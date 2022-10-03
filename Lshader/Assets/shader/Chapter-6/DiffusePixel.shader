@@ -14,6 +14,9 @@ Shader "Custom/Chapter6/DiffusePixelLevel"
             
             CGPROGRAM
 
+            #pragma vertex vert
+            #pragma fragment frag
+
             #include "Lighting.cginc"
             fixed4 _Diffuse;
             struct a2v
@@ -27,8 +30,7 @@ Shader "Custom/Chapter6/DiffusePixelLevel"
                 float3 worldNormal : TEXCOORD0;
             };
 
-            #pragma vertex vert
-            #pragma fragment frag
+            
 
             v2f vert(a2v v)
             {
@@ -43,7 +45,7 @@ Shader "Custom/Chapter6/DiffusePixelLevel"
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
                 fixed3 worldNormal = normalize(i.worldNormal);
                 fixed3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
-                fixed3 diffuse = _LightColor0.rgb + _Diffuse.rgb * saturate(dot(worldNormal, worldLight));
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLight));
                 fixed3 color = ambient + diffuse;
                 return fixed4(color, 1.0);
             }

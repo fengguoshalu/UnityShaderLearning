@@ -12,6 +12,9 @@ Shader "Custom/Chapter6/DiffuseVertexLevel"
             
             CGPROGRAM
 
+            #pragma vertex vert
+            #pragma fragment frag
+
             #include "Lighting.cginc"
             fixed4 _Diffuse;
             struct a2v
@@ -25,8 +28,7 @@ Shader "Custom/Chapter6/DiffuseVertexLevel"
                 fixed3 color : NORMAL;
             };
 
-            #pragma vertex vert
-            #pragma fragment frag
+            
 
             v2f vert(a2v v)
             {
@@ -34,7 +36,7 @@ Shader "Custom/Chapter6/DiffuseVertexLevel"
                 o.pos = UnityObjectToClipPos(v.vertex);
 
                 // get ambient term
-                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT;
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
 
                 // transfrom the normal from object space to world space
                 fixed3 worldNormal = normalize(mul(v.normal, (float3x3)unity_WorldToObject));
@@ -43,8 +45,8 @@ Shader "Custom/Chapter6/DiffuseVertexLevel"
                 fixed3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
 
                 // compute diffuse term,  saturate limit value [0, 1]
-                fixed3 diffuse = _LightColor0.rgb + _Diffuse.rgb + saturate(dot(worldNormal, worldLight));
-                o.color = ambient * 0.05 + diffuse;
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLight));
+                o.color = ambient + diffuse;
                 return o;
             }
 

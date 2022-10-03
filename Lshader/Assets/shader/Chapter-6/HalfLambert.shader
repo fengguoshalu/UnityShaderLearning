@@ -14,6 +14,9 @@ Shader "Custom/Chapter6/HalfLambert"
             
             CGPROGRAM
 
+            #pragma vertex vert
+            #pragma fragment frag
+
             #include "Lighting.cginc"
             fixed4 _Diffuse;
             struct a2v
@@ -27,8 +30,7 @@ Shader "Custom/Chapter6/HalfLambert"
                 float3 worldNormal : TEXCOORD0;
             };
 
-            #pragma vertex vert
-            #pragma fragment frag
+            
 
             v2f vert(a2v v)
             {
@@ -47,7 +49,7 @@ Shader "Custom/Chapter6/HalfLambert"
                 fixed3 halfLambert = dot(worldNormal, worldLight) * 0.5 + 0.5;
                 fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * halfLambert;
                 
-                fixed3 color = ambient*0.5 + diffuse;
+                fixed3 color = ambient + diffuse;
                 return fixed4(color, 1.0);
             }
             
